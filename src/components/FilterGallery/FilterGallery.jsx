@@ -1,63 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './FilterGallery.css';
 import { categories, images } from './data';
+import SelectGallery from './SelectGallery';
+import Gallery from './Gallery';
 
-const FilterGallery = () => {
-  return (<section className="section FilterGallery project">
-      <h1 className="title">Filter Gallery React App</h1>
-      <div className="container header">
-        <div className="field">
-          <div className="control">
-            <div className="select is-medium">
-              <select>
-                <option>All</option>
-                <option>Toys</option>
-                <option>Cars</option>
-                <option>Animals</option>
-                <option>Nature</option>
-                <option>City</option>
-                <option>Coffee</option>
-              </select>
+class FilterGallery extends Component {
+  state = {
+    allImages: images,
+    imagesList: images,
+    categoryList: categories
+  }
+  handleSelectChange = (e) => {
+    const newImages = this.state.allImages.filter((image) => {
+        return parseInt(e.target.value) === image.categoryId;
+    })
+
+    this.setState({
+      imagesList: newImages
+    });
+    console.log(newImages);
+  }
+  render(){
+    return (
+      <section className="section FilterGallery project">
+        <h1 className="title">Filter Gallery React App</h1>
+        <div className="container header">
+          <div className="field">
+            <div className="control">
+              <div className="select is-medium">
+                <SelectGallery onSelectImg={this.handleSelectChange} categoryList={this.state.categoryList} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="container">
-          <div>
-            <img src="/gallery/1.jpg" alt='smth' />
-          </div>  
-          <div>
-            <img src="/gallery/2.jpg" alt='smth' />
-          </div>
-          <div>
-            <img src="/gallery/3.jpg" alt='smth' />
-          </div>  
-          <div>
-            <img src="/gallery/4.jpg" alt='smth' />
-          </div>  
-          <div>
-            <img src="/gallery/5.jpg" alt='smth' />
-          </div>  
-          <div className="chosen">
-            <img src="/gallery/6.jpg" alt='smth' />
-          </div>  
-          <div>
-            <img src="/gallery/7.jpg" alt='smth' />
-          </div> 
-          <div>
-            <img src="/gallery/8.jpg" alt='smth' />
-          </div>  
-          <div>
-            <img src="/gallery/9.jpg" alt='smth' />
-          </div>
-          <div>
-            <img src="/gallery/10.jpg" alt='smth' />
-          </div>   
-          <div>
-            <img src="/gallery/11.jpg" alt='smth' />
-          </div>     
-      </div> 
-    </section>)
+        <Gallery imagesList={this.state.imagesList}/>
+      </section>
+    
+    )
+  }
 }
 
 export default FilterGallery;

@@ -19,5 +19,5 @@ export const categories = [
   { id: 4, name: 'Animals' },
   { id: 5, name: 'Coffee' },
   { id: 6, name: 'City' },
-  { id: 6, name: 'Cats' }
+  { id: 7, name: 'Cats' }
 ]
